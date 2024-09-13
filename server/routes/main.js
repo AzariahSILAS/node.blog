@@ -3,7 +3,7 @@ const { get } = require('mongoose');
 const router = express.Router();
 const Post = require('../models/Post')
 
-//  GET
+//  GET/
 //  HOME
 router.get('', async (req, res) => {
     try {
@@ -37,7 +37,52 @@ router.get('', async (req, res) => {
     
 });
 
+//  GET/
+//  Post :id
 
+router.get('/post/:id', async (req, res) => {
+    try {
+        let slug = req.params.id
+        const data = await Post.findById({_id: slug});
+        const locals = {
+            title: data.title,
+            description: "simple Blog created with NodeJs, Express & MongoDb."
+        }
+        res.render('post', {locals, data});
+    }   catch (error) {
+        console.log(error);
+    }
+})
+
+//  POST/
+//  POST - searchTerm
+
+router.post('/search', async (req, res) => {
+    try {
+        const locals = {
+            title: "Search",
+            description: "simple Blog created with NodeJs, Express & MongoDb."
+        }
+        let searchTerm = req.body.searchTerm;
+        const searchNoSpecialChar = searchTerm.replace(/[^a-zA-Z0-9 ]/g, "")
+
+      
+    const data = await Post.find({
+        $or: [
+            { title: { $regex: new RegExp(searchNoSpecialChar, 'i')}},
+            { body: { $regex: new RegExp(searchNoSpecialChar, 'i')}}
+        ]
+    });
+
+        
+        res.render("search", {
+            data,
+            locals
+        });
+    }   catch (error) {
+        console.log(error);
+    }
+})
 
 
 
