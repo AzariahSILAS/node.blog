@@ -1,16 +1,37 @@
-const express = require('express')
-const router = express.Router()
+const express = require('express');
+const { get } = require('mongoose');
+const router = express.Router();
+const Post = require('../models/Post')
 
-//Routes
-router.get('', (req, res) => {
+//  GET
+//  HOME
+router.get('', async (req, res) => {
     const locals = {
         title: "NodeJs Blog",
         description: "Simple Blog created with NodeJs, Express & MongoDb"
     }
 
+    try {
+        const data = await Post.find();
+        res.render('index', { locals, data });
+    } catch (error) {
+        console.log(error)
+    }
 
-    res.render('index', { locals });
+    
 });
+
+
+
+
+
+
+
+
+
+
+
+
 router.get('/about', (req, res) => {
     res.render('about');
 });
