@@ -31,16 +31,33 @@ router.post('/admin', async (req, res) => {
        
         const {username, password} = req.body;
 
-        res.redirect('/admin');
+       
 
 
 
-
+        // res.redirect('/admin');
         // res.render('admin/index', { locals, layout: adminLayout });
     } catch (error) {
         console.log(error);
     }
 });
+
+
+// router.post('/admin', async (req, res) => {
+//     try {
+       
+//         const {username, password} = req.body;
+
+//         res.redirect('/admin');
+
+
+
+
+//         // res.render('admin/index', { locals, layout: adminLayout });
+//     } catch (error) {
+//         console.log(error);
+//     }
+// });
 
 
 
