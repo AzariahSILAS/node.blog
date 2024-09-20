@@ -28,7 +28,8 @@ router.get('', async (req, res) => {
             locals,
             data,
             current: page,
-            nextPage: hasNextPage ? nextPage : null
+            nextPage: hasNextPage ? nextPage : null,
+            currentRoute: '/'
          });
     } catch (error) {
         console.log(error)
@@ -48,7 +49,7 @@ router.get('/post/:id', async (req, res) => {
             title: data.title,
             description: "simple Blog created with NodeJs, Express & MongoDb."
         }
-        res.render('post', {locals, data});
+        res.render('post', {locals, data,});
     }   catch (error) {
         console.log(error);
     }
